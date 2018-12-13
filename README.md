@@ -4,8 +4,9 @@ Learn to embrace vanilla JavaScript without the kruft, churn, bloat and fluff. T
 If you're a serious JavaScript developer you need to know the core language, it's quirks and nuances from the ground up. By learning the fundamentals you'll put yourself ahead of the pack and build great confidence and skill - skill that will be the envy of your colleages. If you look behind the hood of any library or frameworks, you'll see vanilla javascript patterns written over and over and over - this should in itself indicate to you that you don't need a library or framework to do much of the stuff you need to do on a daily basis.
 
 Honestly the advantages are limitless so we won't concentrate on listing them. Below you'll find syntactical examples and short descriptions of popular vanilla javascript in the wild that you should definitely acquaint yourself with in no particualr order. Once this repo grows to a substantial level I'll reorganize it into succinct categories.
+We'll try to use as much ES5 as possible with some exceptions as we progress with more advanced examples, but generally we'll be ES5. You could refactor for ES6++ which would be good practice.
 
-Go on build your career, confidence and the respect of other engineers in the industry!
+Go on, build your career, confidence and the respect of other engineers in the industry!
 
 ## assert()
 The most humble of functions, if you know how to use this function it can take care of 80% of your test cases:
@@ -13,15 +14,15 @@ The most humble of functions, if you know how to use this function it can take c
 ```javascript
 function assert(value, descr) {
   const result = value ? 'pass' : 'fail'
-  console.log(`${result} — ${descr}`) 
+  console.log(`${result} — ${descr}`)
 }
 ```
 Here are a few examples of how you can use `assert()`:
 
 ```javascript
-assert(1 === "1", 'the values aren't equal; they are of different types')
+assert(1 === "1", 'the values aren\'t equal; they are of different types')
 assert(null == undefined, 'yields true, beware of == comparing values')
-assert(typeof {a: 1} === 'object', 'it is an object literal')
+assert(typeof { a: 1 } === 'object', 'it is an object literal')
 assert("this is a string".split('').reverse().join('') === 'gnirts a si siht', 'successfully reversed a string!')
 
 function foo(x, y, z) {
@@ -33,13 +34,50 @@ function foo(x, y, z) {
   assert(arguments[1] === y, 'y is assigned to the second argument')
   assert(arguments[2] === z, 'z is assigned to the third argument')
 
-  assert(arguments.length === 3, 'we've passed in 3 paramaters')
+  assert(arguments.length === 3, 'we\'ve passed in 3 paramaters')
   assert(this === window, 'the this value points to the window object') 
 }
+
 foo(10, 20, 30)
 
 function Person() {}
 const zoya = new Person()
 assert(typeof zoya === 'object', 'zoya is an object')
 assert(zoya instanceof Person, 'zoya is an instance of the Person constructor function')
+```
+
+## Test if said array holds a specific value, like `indexOf()`
+
+It's pretty easy to test if a certain value exists in an array, `indexOf` returns -1 if it doesn't which can be confusing at times.
+
+```javascript
+function existsInArray(val, arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === val) {
+      return i
+    }
+  }
+  return -1
+}
+
+// works well for primitive values
+var myArr = [10, 20, 30, 40, 50, null, undefined]
+existsInArray(null, myArr)
+// => 5
+```
+We can simply refactor the `existsinArray` function to return true or false
+
+```javascript
+function existsInArray(val, arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === val) {
+      return true
+    }
+  }
+  return false
+}
+
+var myArr = ['ten', 'twenty', 30, 40.1, 50.2]
+existsInArray(50.2, myArr)
+// => 4
 ```
