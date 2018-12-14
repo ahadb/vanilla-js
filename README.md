@@ -46,7 +46,7 @@ assert(typeof zoya === 'object', 'zoya is an object')
 assert(zoya instanceof Person, 'zoya is an instance of the Person constructor function')
 ```
 
-## Test if said array holds a specific value, like `indexOf()`
+## Test if said array holds a specific value`
 
 It's pretty easy to test if a certain value exists in an array, `indexOf` returns -1 if it doesn't which can be confusing at times.
 
@@ -80,4 +80,75 @@ function existsInArray(val, arr) {
 var myArr = ['ten', 'twenty', 30, 40.1, 50.2]
 existsInArray(50.2, myArr)
 // => 4
+```
+
+> Alternatively, you can also use `indexOf`:
+```javascript
+var myArr = ['ten', 'twenty', 30, 40.1, 50.2]
+myArr.indexOf(30)
+//=> 2
+```
+
+## Extend Objects, or Rather Merge Objects
+Natively, JavaScript doesn't have a way to merge objects with the exception of `object.assign()`. When merging multiple objects together we can use the function below.
+Note the following will return a shallow copy only.
+
+```javascript
+function extend() {
+  var extendedObj = {}
+  
+  function merge(obj) {
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        extendedShallowObj[prop] = obj[prop]
+      }
+    }
+  }
+    
+  for (var i = 0; i < arguments.length; i++) {
+    merge(arguments[i])
+  }
+    
+  return extendedObj
+}
+
+var originalObj1 = {
+  eyes: 'black',
+  hair: 'brown',
+  gender: 'female',
+  age: 36
+}
+
+var originalObj2 = {
+  eyes: 'green',
+  hair: 'blonde',
+  gender: 'male'
+}
+
+extend(originalObj1, originalObj2)
+// => {eyes: "green", hair: "blonde", gender: "male", age: 36}
+```
+
+> Alternatively, you can also use `Object.assign`, or the spread operator:
+```javascript
+var originalObj1 = {
+  eyes: 'black',
+  hair: 'brown',
+  gender: 'female',
+  age: 36
+}
+
+var originalObj2 = {
+  eyes: 'green',
+  hair: 'blonde',
+  gender: 'male'
+}
+
+// Object.assign
+Object.assign({}, originalObj1, originalObj2)
+// => {eyes: "green", hair: "blonde", gender: "male", age: 36}
+
+// Using object spread
+const extendedObj = {...originalObj1, ...originalObj2}
+// => {eyes: "green", hair: "blonde", gender: "male", age: 36}
 ```
