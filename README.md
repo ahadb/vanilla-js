@@ -152,3 +152,59 @@ Object.assign({}, originalObj1, originalObj2)
 const extendedObj = {...originalObj1, ...originalObj2}
 // => {eyes: "green", hair: "blonde", gender: "male", age: 36}
 ```
+
+## Dynamically Create a Table from Array on Objects
+Loop through some data and dynamically create a table which you'll append to the DOM
+
+```javascript
+var data = [
+  { id: 1, name: 'Anthony', skill: 'Frontend' },
+  { id: 2, name: 'Ibrahim', skill: 'Backend' },
+  { id: 3, name: 'Maeesha', skill: 'UX' }
+]
+
+var tableStr = ""
+
+for (var i = 0; i < data.length; i++) {
+ tableStr += "<tr>"
+ tableStr +=   "<td>"+ data[i].id +"</td>"
+ tableStr +=   "<td>"+ data[i].name +"</td>"
+ tableStr +=   "<td>"+ data[i].skill +"</td>"
+ tableStr += "</tr>"
+}
+
+document.querySelector('tbody').innerHTML = tableStr
+```
+...and the html to go along with it
+```html
+<table border=1>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Skill</th>
+    </tr>
+   <thead>
+   <tbody>
+   </tbody>
+ </table>
+```
+
+> You could also use the help of ES6's map() function
+```javascript
+var data = [
+  { id: 1, name: 'Anthony', skill: 'Frontend' },
+  { id: 2, name: 'Ibrahim', skill: 'Backend' },
+  { id: 3, name: 'Maeesha', skill: 'UX' }
+]
+
+var tableStr = ""
+
+tableStr = data.map(f => `
+  <tr>
+    <td>${f.id}</td>
+    <td>${f.name}</td>
+    <td>${f.skill}</td>
+  </tr>
+`).join('')
+```
