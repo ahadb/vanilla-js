@@ -208,3 +208,65 @@ tableStr = data.map(f => `
   </tr>
 `).join('')
 ```
+
+## Projection (Imperatively Creating a New Array Without Mutation)
+Projection is a cool concept to know about and is a mapping of a set (or other mathematical structure) into a subset (or sub-structure), which is equal to its square. In the case below we are omitting the square as we'll
+create our own map, filter, reduce functions at a later stage. It's fun however to see how this concept works using simple constructs like our `forEach` function
+
+```javascript
+function projection(originalArr) {
+  var newArr = []
+  
+  originalArr.forEach(function(item) {
+    newArr.push({
+      id: item.id,
+      name: item.name + ',' + ' Projected',
+      phone: item.phone + ' ext: 21'
+    })
+  })
+  
+  return newArr
+}
+
+var users = [{
+      "id": Math.floor(Math.random() * 10000000),
+      "name": "Sarah",
+      "phone": "555-555-55555"
+    }, {
+      "id": Math.floor(Math.random() * 10000000),
+      "name": "Hakeem",
+      "phone": "555-555-6666"
+    }, {
+      "id": Math.floor(Math.random() * 10000000),
+      "name": "Michelle",
+      "phone": "555-555-7777"
+    }, {
+      "id": Math.floor(Math.random() * 10000000),
+      "name": "Catherine",
+      "phone": "555-555-8888"
+}]
+
+projection(users)
+// => Array(4) [ {…}, {…}, {…}, {…} ]
+```
+The `projection` function does not provide a complete interface for all arrays, rather has a concrete foundation from which we can later build upon.
+
+## map()
+Here is an example of our own map method - I would not advise extending the prototype object but for the purpose of this example we will do just that.
+
+```javascript
+if (!Array.prototype.myMap) {
+  Array.prototype.myMap = function(projectedCb) {
+    var results = []
+    this.forEach(function(item) {
+      results.push(projectedCb(item))
+    })
+    
+    return results
+  }
+}
+
+// [1, 2, 3, 4, 5].myMap(i => i * 2)
+// => Array(5) [ 2, 4, 6, 8, 10 ]
+```
+
