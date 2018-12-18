@@ -285,3 +285,54 @@ if (!Array.prototype.myMap) {
 // => Array(5) [ 2, 4, 6, 8, 10 ]
 ```
 
+## filter()
+Almost the same as above with a slightly different implementation, let's encapsulate the data as well. You can create a reusable 
+interface yourself at a later stage.
+
+```javascript
+function predicate() {
+  var results = []
+  var users = [{
+        "id": Math.floor(Math.random() * 10000000),
+        "name": "Sarah",
+        "phone": "555-555-55555"
+      }, {
+        "id": Math.floor(Math.random() * 10000000),
+        "name": "Hakeem",
+        "phone": "555-555-6666"
+      }, {
+        "id": Math.floor(Math.random() * 10000000),
+        "name": "Catherine",
+        "phone": "555-555-7777"
+      }, {
+        "id": Math.floor(Math.random() * 10000000),
+        "name": "Catherine",
+        "phone": "555-555-8888"
+  }]
+  users.forEach(function(user) {
+    return user.name === 'Catherine' ? results.push(user) : null
+  })
+  
+  return results
+}
+
+predicate()
+// => Array [ {…}, {…} ]
+```
+Here we're attaching our own filter method to the prototype (I wouldn't do this in real life, just for example purposes)
+```javascript
+if (!Array.prototype.myFilter) {
+  Array.prototype.myFilter = function(predicate) {
+    var results = []
+    this.forEach(function(item) {
+      predicate(item) ? results.push(item) : null
+    })
+    
+    return results
+  }
+}
+
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(x => x % 2)
+// => Array(5) [ 1, 3, 5, 7, 9 ]  ​
+```
+
