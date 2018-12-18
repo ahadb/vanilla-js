@@ -209,6 +209,21 @@ tableStr = data.map(f => `
 `).join('')
 ```
 
+## Taversing an Array
+Printing all the elements of an array imperatively, without a functional style.
+
+```javascript
+function traverseArray(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    console.log(arr[i])
+  }
+}
+
+var myArr = [10, 20, 30 ,40, 50]
+traverseArray(arr)
+// => 10, 20, 30, 40, 50
+```
+
 ## Projection (Imperatively Creating a New Array Without Mutation)
 Projection is a cool concept to know about and is a mapping of a set (or other mathematical structure) into a subset (or sub-structure), which is equal to its square. In the case below we are omitting the square as we'll
 create our own map, filter, reduce functions at a later stage. It's fun however to see how this concept works using simple constructs like our `forEach` function
