@@ -332,7 +332,68 @@ if (!Array.prototype.myFilter) {
   }
 }
 
-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(x => x % 2)
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].myFilter(x => x % 2)
 // => Array(5) [ 1, 3, 5, 7, 9 ]  ​
 ```
 
+> With ES6 it's as simple as:
+```javascript
+var firstFive = [1, 2, 3, 4, 5]
+
+firstFive.filter(f => f <= 2)
+// => [1, 2]
+// => firstFive
+// => Array(5) [ 1, 2, 3, 4, 5 ]
+```
+
+## Chaining Functional Functions
+Just for a little fun, let's chain our above functions `myMap()` and `myfilter()` together to yield a desired result
+
+```javascript
+function myChain() {
+  var movies = [{
+    "id": Math.floor(Math.random() * 10000000),
+    "title": "Crazy Asians",
+    "length": 2.15
+  }, {
+    "id": Math.floor(Math.random() * 10000000),
+    "title": "Predator",
+    "length": 1.48
+  }, {
+    "id": Math.floor(Math.random() * 10000000),
+    "title": "Teen Wolf",
+    "length": 2.00
+  }, {
+    "id": Math.floor(Math.random() * 10000000),
+    "title": "Bad Boys",
+    "length": 2.09
+  }]
+
+  return newReleases
+    .myFilter(movie => movie.length >= 2.00)
+    .myMap(video => video.title)
+}
+
+myChain()
+// => Array(3) [ "Crazy Asians", "Teen Wolf", "Bad Boys" ]
+```
+
+## Flatten a Multi-Dimensional Array
+Use a plain for loop to flatten a multi-dimensional or 2D array
+
+```javascript
+function flattenArray() {
+  var myArray = [[1, 2], [3, 4, 5], [6, 7, 8, 9]]
+  var flattenedArray = []
+  
+  for (var i = 0; i < myArray.length; i++) {
+    for (var j = 0; j < myArray[i].length; ++j) {
+      flattenedArray.push(myArray[i][j])
+    }
+  }
+  return flattenedArray
+}
+
+flattenArray()
+// => Array(9) [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+```
