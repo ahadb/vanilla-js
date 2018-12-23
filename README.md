@@ -397,3 +397,46 @@ function flattenArray() {
 flattenArray()
 // => Array(9) [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
+
+## GET Request
+Make a simple GET request using the XMLHttpRequest object
+
+```javascript
+function getRequest(url, isAsync, callback) {
+    var xmlHttp = new XMLHttpRequest()
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", url, isAsync)
+    xmlHttp.send(null)
+}
+
+getRequest('https://jsonplaceholder.typicode.com/posts/1', function(response) {
+  console.log(JSON.parse(response))
+})
+```
+
+## POST Request
+Make a simple POST request using the XMLHttpRequest object
+
+```javascript
+function postRequest(url, isAsync) {
+  var xmlHttp = new XMLHttpRequest()
+  var jsonData = { title: 'foo', body: 'bar', userId: 1 }
+  var formattedJsonData = JSON.stringify( jsonData  )
+   
+  xmlHttp.open('POST', 'https://jsonplaceholder.typicode.com/posts')
+  xmlHttp.setRequestHeader('Content-Type', 'application/json')
+  xmlHttp.onload = function() {
+    if (xhr.status !== 200) {
+      alert('Something went wrong.')
+    }
+  }
+  
+  console.log(jsonData)
+  console.log(JSON.parse(formattedJsonData))
+  newXHR.send(formattedJsonData)
+}
+```
+
