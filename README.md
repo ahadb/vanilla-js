@@ -421,12 +421,10 @@ getRequest('https://jsonplaceholder.typicode.com/posts/1', function(response) {
 Make a simple POST request using the XMLHttpRequest object
 
 ```javascript
-function postRequest(url, isAsync) {
+function postRequest(url, isAsync, data) {
   var xmlHttp = new XMLHttpRequest()
-  var jsonData = { title: 'foo', body: 'bar', userId: 1 }
-  var formattedJsonData = JSON.stringify( jsonData  )
    
-  xmlHttp.open('POST', 'https://jsonplaceholder.typicode.com/posts')
+  xmlHttp.open('POST', url, isAsync)
   xmlHttp.setRequestHeader('Content-Type', 'application/json')
   xmlHttp.onload = function() {
     if (xhr.status !== 200) {
@@ -434,9 +432,14 @@ function postRequest(url, isAsync) {
     }
   }
   
-  console.log(jsonData)
-  console.log(JSON.parse(formattedJsonData))
-  newXHR.send(formattedJsonData)
+  console.log(data)
+  console.log(JSON.parse(data))
+  xmlHttp.send(data)
 }
+
+var jsonData = { title: 'foo', body: 'bar', userId: 1 }
+var formattedJsonData = JSON.stringify(jsonData)
+
+postRequest('https://jsonplaceholder.typicode.com/posts', true, formattedJsonData)
 ```
 
