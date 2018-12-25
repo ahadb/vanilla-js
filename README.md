@@ -443,3 +443,28 @@ var formattedJsonData = JSON.stringify(jsonData)
 postRequest('https://jsonplaceholder.typicode.com/posts', true, formattedJsonData)
 ```
 
+## Callback
+Create a callback function that's passed to another function and invoked in your outer function
+
+```javascript
+function greeting(name) {
+  alert('Hello ' + name)
+}
+
+function processUserInput(callback) {
+  var name = prompt('What is your name?')
+  callback(name)
+}
+
+processUserInput(greeting)
+```
+
+> below is the most contrived example of a callback
+```javascript
+// the most contrived example
+function cbExample(cb) {
+  cb()
+}
+
+cbExample(function() { console.log('Hi')})
+```
