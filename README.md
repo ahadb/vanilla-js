@@ -468,3 +468,48 @@ function cbExample(cb) {
 
 cbExample(function() { console.log('Hi')})
 ```
+
+## Select an Element By Id
+Use `getElementById()`, which returns the one element with a particular id
+
+> Get the element with an id of 'home-panel'
+```javascript
+var el = document.getElementById('home-panel')
+el.innerHTML = 'Selected Home Panel and appended some text into it'
+```
+
+## Select an Element By Class Name
+Use `getElementsByClassName()`, which returns a collection of elements
+
+> Get all elements that have a class of test
+```javascript
+var testEl = document.getElementsByClassName('test')
+```
+
+> Get the first element that has a class of test
+```javascript
+var firstTestEl = document.getElementsByClassName('test')[0]
+```
+
+## Select and Match a Static (non-live) Specified Group of Selectors
+Use `querySelectorAll()`
+
+```javascript
+var paraMatches = document.querySelectorAll('p')
+var multipleMatches = document.querySelectorAll('div.banner, div.notes')
+```
+
+## Select Elements By Tag Name
+Use `getElementsByTagName() for div, a, span`
+
+```javascript
+var el = document.getElementsByTagName('a')
+
+// get the number of selected items
+console.log(el.length)
+
+// loop or iterate over elements and output href values
+for (var i = 0; i < el.length; i++) {
+  console.log(el[i].href)
+}
+```
