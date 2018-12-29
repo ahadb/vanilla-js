@@ -513,3 +513,59 @@ for (var i = 0; i < el.length; i++) {
   console.log(el[i].href)
 }
 ```
+
+## Create a new DOM element
+Simply use `createElement` to create new dom elements
+
+```javascript
+var el = document.createElement('div')
+
+// fill the new element with HTML content
+el.innerHTML('<span>Hello World</span>')
+```
+
+## Create Nodes and Append Them to New Element
+This requires more code than the above `createElement`
+
+```javascript
+var el = document.createElement('div')
+var textNode = document.createTextNode('Hello World')
+el.appendChild(textNode)
+
+// no insert it into the DOM tree
+document.body.appendChild(el)
+```
+
+## Append or Prepend to an Element
+Insert a new element to the end or beginning of another element's content
+
+```javascript
+var el = document.querySelector('div')
+		
+// append to the element's content
+el.innerHTML += '<p>Hello World!</p>'
+	
+// prepend to the element's content
+el.innerHTML = '<p>Hello World!</p>' + el.innerHTML
+```
+
+## Match Element Selector
+Check current elements against a CSS selector
+
+```javascript
+var el = document.querySelector('span')
+console.log(el.matches('.bar'))
+```
+
+## Get Parent and Sibling Element Nodes
+
+```javascript
+var el = document.querySelector('div')
+
+// select parent element node
+var parent = el.parentNode
+
+// prev and next siblings
+var prev = el.previousSibling
+var next = el.nextSibling
+```
