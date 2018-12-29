@@ -569,3 +569,42 @@ var parent = el.parentNode
 var prev = el.previousSibling
 var next = el.nextSibling
 ```
+
+## Get a Query String From a Url
+Quite a common task, and you can do this with plain ole JavaScript
+
+```javascript
+function getQueryString(name, url) {
+  url = url ? url : window.location.href
+  
+  var reg = new RegExp( '[?&]' + name + '=([^&#]*)', 'i' )
+  var string = reg.exec(url)
+  return string ? string[1] : null
+}
+
+getQueryString('foo', 'http://www.quxx.com?foo=javascript&bar=functional')
+// => "javascript"
+```
+
+## Create an Event Listener
+Listen for different types of events likes clicks, hovers, etc
+
+```javascript
+var el = document.querySelector('.my-button-class')
+
+el.addEventListener('click', function(event) {
+  event.target.textContent = 'Click count: ' + event.detail 
+  // Do more
+}, false)
+``` 
+
+> assign a function to your variable for multiple events on same element
+```javascript
+var el = document.querySelector('.my-class')
+
+var myFunction = function(event) {
+	// Do something
+}
+el.addEventListener('click', myFunction, false)
+el.addEventListener('hover', myFunction, false)
+```
