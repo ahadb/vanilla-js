@@ -608,3 +608,77 @@ var myFunction = function(event) {
 el.addEventListener('click', myFunction, false)
 el.addEventListener('hover', myFunction, false)
 ```
+
+## Spawn a Web Worker
+Run JavaScript code in the background with the use of web workers. Bring threading to a language that is single-threaded.
+
+The basics of a web worker runs in an isolated thread. Send a message to your worker using `postMessage`
+```javascript
+/* main.js */
+const worker = new Worker('work.js')
+worker.postMessage('Hello World, do work')
+
+/* work.js */
+worker.onmessage = e => {
+  console.log(e.data)
+}  
+
+worker.onerror = e => {
+  console.error(e.message)
+}
+
+// => 'Hello World'
+```
+> send back a message to the main thread using `pushMessage`
+```javascript
+/* work.js */
+worker.onmessage = e => {
+  console.log(e.data)
+  worker.pushMessage('I worked, this is what i have to say about it')
+}
+
+/* main.js */
+const worker = new Worker('work.js')
+worker.postMessage('Hello World, do work')
+
+worker.onmessage = e => {
+  console.log(e.data)
+}
+
+// => 'I worked, this is what i have to say about it'
+```
+> let's broaden our understanding and setup multiple listeners for the `message` event:
+```javascript
+/* work.js */
+worker.addEventListener('message', function(e) {
+    console.log(e.data)
+    worker.pushMessage('hey')
+  }, false)
+
+worker.addEventListener('message', function(e) {
+    console.log('Another message sent to main.js from worker.js')
+  }, false)
+
+worker.addEventListener('error', function(e) {
+    console.log(e.message)
+  }, false)
+  
+/* main.js */
+const worker = new Worker('worker.js')
+worker.postMessage('hello')
+
+worker.addEventListener('message', function(e) { 
+  console.log(e.data)
+}, false)
+
+// => 'Hey'
+// => 'Another message sent to main.js from worker.js'
+```
+Workers run outside of the main app thread so they do not have the same access to all JS features that your main application does. You do not have access to:
+
+* The DOM
+* The `window` object
+* The `parent` object
+* All workers scrips must be served from the same domain
+
+If you use a worker to handle a task that updates the main thread then you will need to use the messaging system between the worker and main thread.
