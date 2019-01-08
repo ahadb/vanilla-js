@@ -682,3 +682,59 @@ Workers run outside of the main app thread so they do not have the same access t
 * All workers scrips must be served from the same domain
 
 If you use a worker to handle a task that updates the main thread then you will need to use the messaging system between the worker and main thread.
+
+## `pipe()` 
+`pipe()` might be a tad bit out of scope for this repo, however you'll see numerous versions of it in open source libraries and therefore the interest to vanillify this useful functional function.
+
+Below you'll find the most naive version of pipe
+```javascript
+// imperatively written, we could also use a declarative approach
+function pipe(arr) {
+  return function(y) {
+    let result = y
+      for (let i = 0; i < arr.length; i++) {        
+        let func = arr[i]
+          result = func(result)
+      }
+      return result
+   }
+}
+
+// lets create some functions to pass to our pipe fn
+// they don't have to perfect for demo purposes
+function petName(pet) {
+  return pet.name
+}
+
+function uppercase(str) {
+  str.toUpperCase()
+}
+
+function first5Char(str) {
+  return str.substring(0,6)
+}
+
+function uppercase(str) {
+  return str.toUpperCase()
+}
+
+function reverse(str) {
+  return str.split('').reverse().join('')
+}
+
+function compressString(str) {
+  var output = ''
+  var count = 0
+  for (var i = 0; i < str.length; i++) {
+    count++
+    if (str[i] != str[i+1]) {
+      output += str[i] + count
+      count = 0
+    }
+  }
+  console.log(output)
+}
+
+pipe([petName, uppercase, first5Char, reverse, compressString])({name: 'BooBoo'})
+// => "B1O2B1O2"
+```
