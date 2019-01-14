@@ -738,3 +738,22 @@ function compressString(str) {
 pipe([petName, uppercase, first5Char, reverse, compressString])({name: 'BooBoo'})
 // => "B1O2B1O2"
 ```
+
+## Linear Search
+JavaScript has search built-in with these common methods: `indexOf`, `includes`, `find`, and `findIndex`. Behind the hood when these native functions run they are simply checking for each value per iteration in a sequential or linear fashion.
+```javascript
+function linearSearch(arr, val) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === val) {
+      return i
+    }
+  }
+  return -1
+}
+
+linearSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10)
+// => 9
+
+linearSearch(["Farah", "Javed", "Chris", "Allie" "Kate", "Ali", "Adrian"], "Fahad")
+// => -1
+```
