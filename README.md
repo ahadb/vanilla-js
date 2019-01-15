@@ -1,5 +1,5 @@
 # vanilla-js
-Learn to embrace vanilla JavaScript without the kruft, churn, bloat and fluff. This repos is work in progress that aims to address people learning the CORE JavaScript language instead of dropping in new libraries and frameworks (...the proverbial shiny new object).
+Learn to embrace vanilla JavaScript without the kruft, churn, bloat and fluff. This repo is work in progress that aims to address people learning the CORE JavaScript language instead of dropping in new libraries and frameworks (...the proverbial shiny new object).
 
 If you're a serious JavaScript developer you need to know the core language, it's quirks and nuances from the ground up. By learning the fundamentals you'll put yourself ahead of the pack and build great confidence and skill - skill that will be the envy of your colleages. If you look behind the hood of any library or frameworks, you'll see vanilla javascript patterns written over and over and over - this should in itself indicate to you that you don't need a library or framework to do much of the stuff you need to do on a daily basis.
 
@@ -46,12 +46,11 @@ assert(typeof zoya === 'object', 'zoya is an object')
 assert(zoya instanceof Person, 'zoya is an instance of the Person constructor function')
 ```
 
-## Test if said array holds a specific value`
-
-It's pretty easy to test if a certain value exists in an array, `indexOf` returns -1 if it doesn't which can be confusing at times.
-
+## Linear Search
+JavaScript has search built-in with these common methods: `indexOf`, `includes`, `find`, and `findIndex`. Behind the hood when these native functions run they are simply checking for each value
+per iteration in a sequential or linear fashion.
 ```javascript
-function existsInArray(val, arr) {
+function linearSearch(arr, val) {
   for (var i = 0; i < arr.length; i++) {
     if (arr[i] === val) {
       return i
@@ -60,15 +59,16 @@ function existsInArray(val, arr) {
   return -1
 }
 
-// works well for primitive values
-var myArr = [10, 20, 30, 40, 50, null, undefined]
-existsInArray(null, myArr)
-// => 5
+linearSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10)
+// => 9
+
+linearSearch(["Farah", "Javed", "Chris", "Allie", "Kate", "Ali", "Adrian"], "Fahad")
+// => -1
 ```
-We can simply refactor the `existsinArray` function to return true or false
+We can simply refactor the `linearSearch` function to return true or false
 
 ```javascript
-function existsInArray(val, arr) {
+function linearSearch(arr, val) {
   for (var i = 0; i < arr.length; i++) {
     if (arr[i] === val) {
       return true
@@ -78,7 +78,7 @@ function existsInArray(val, arr) {
 }
 
 var myArr = ['ten', 'twenty', 30, 40.1, 50.2]
-existsInArray(50.2, myArr)
+linearSearch(50.2, myArr)
 // => 4
 ```
 
@@ -739,21 +739,31 @@ pipe([petName, uppercase, first5Char, reverse, compressString])({name: 'BooBoo'}
 // => "B1O2B1O2"
 ```
 
-## Linear Search
-JavaScript has search built-in with these common methods: `indexOf`, `includes`, `find`, and `findIndex`. Behind the hood when these native functions run they are simply checking for each value per iteration in a sequential or linear fashion.
+## Binary Search
+We can also search an array using binary search, the caveat here is the array needs to be sorted and you create pointers to the left, right and middle of the array to track your indices.
+This is much faster than linear search for 1000's or more items
 ```javascript
-function linearSearch(arr, val) {
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i] === val) {
-      return i
-    }
-  }
-  return -1
+function binarySearch(arr, elem) {
+   var start = 0
+   var end = arr.length - 1
+   var middle = Math.floor((start + end) / 2)
+   while (arr[middle] !== elem) {
+     if (elem < arr[middle]) {
+       end = middle - 1
+     } else {
+         start = middle + 1
+     }
+     middle = Math.floor((start + end) / 2)
+   }
+   if (arr[middle] == elem) {
+     return middle
+   }
+   return -1     
 }
 
-linearSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10)
-// => 9
+binarySearch([1, 2, 4, 8, 12, 18, 22, 30, 50, 99, 100], 100)
+// => 10
 
-linearSearch(["Farah", "Javed", "Chris", "Allie" "Kate", "Ali", "Adrian"], "Fahad")
+binarySearch([1, 2, 4, 8, 12, 18, 22, 30, 50, 99, 100], -1)
 // => -1
 ```
