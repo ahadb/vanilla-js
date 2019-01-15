@@ -469,6 +469,19 @@ function cbExample(cb) {
 cbExample(function() { console.log('Hi')})
 ```
 
+## Simulate Async Code
+It's often useful do simulate async code, we can easily achieve this using `setTimeout`
+```javascript
+function simulateAsync(ms, callback) {
+  setTimeout(function() {
+    callback()
+  }, ms)
+}
+
+simulateAsync(1000, function() { console.log(true) })
+// => true (...after 1 second)
+```
+
 ## Select an Element By Id
 Use `getElementById()`, which returns the one element with a particular id
 
