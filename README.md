@@ -244,21 +244,21 @@ function projection(originalArr) {
 }
 
 var users = [{
-      "id": Math.floor(Math.random() * 10000000),
-      "name": "Sarah",
-      "phone": "555-555-55555"
-    }, {
-      "id": Math.floor(Math.random() * 10000000),
-      "name": "Hakeem",
-      "phone": "555-555-6666"
-    }, {
-      "id": Math.floor(Math.random() * 10000000),
-      "name": "Michelle",
-      "phone": "555-555-7777"
-    }, {
-      "id": Math.floor(Math.random() * 10000000),
-      "name": "Catherine",
-      "phone": "555-555-8888"
+  "id": Math.floor(Math.random() * 10000000),
+  "name": "Sarah",
+  "phone": "555-555-55555"
+}, {
+  "id": Math.floor(Math.random() * 10000000),
+  "name": "Hakeem",
+  "phone": "555-555-6666"
+}, {
+  "id": Math.floor(Math.random() * 10000000),
+  "name": "Michelle",
+  "phone": "555-555-7777"
+}, {
+  "id": Math.floor(Math.random() * 10000000),
+  "name": "Catherine",
+  "phone": "555-555-8888"
 }]
 
 projection(users)
@@ -293,21 +293,21 @@ interface yourself at a later stage.
 function predicate() {
   var results = []
   var users = [{
-        "id": Math.floor(Math.random() * 10000000),
-        "name": "Sarah",
-        "phone": "555-555-55555"
-      }, {
-        "id": Math.floor(Math.random() * 10000000),
-        "name": "Hakeem",
-        "phone": "555-555-6666"
-      }, {
-        "id": Math.floor(Math.random() * 10000000),
-        "name": "Catherine",
-        "phone": "555-555-7777"
-      }, {
-        "id": Math.floor(Math.random() * 10000000),
-        "name": "Catherine",
-        "phone": "555-555-8888"
+    "id": Math.floor(Math.random() * 10000000),
+    "name": "Sarah",
+    "phone": "555-555-55555"
+  }, {
+    "id": Math.floor(Math.random() * 10000000),
+    "name": "Hakeem",
+    "phone": "555-555-6666"
+  }, {
+    "id": Math.floor(Math.random() * 10000000),
+    "name": "Catherine",
+    "phone": "555-555-7777"
+  }, {
+    "id": Math.floor(Math.random() * 10000000),
+    "name": "Catherine",
+    "phone": "555-555-8888"
   }]
   users.forEach(function(user) {
     return user.name === 'Catherine' ? results.push(user) : null
@@ -403,13 +403,13 @@ Make a simple GET request using the XMLHttpRequest object
 
 ```javascript
 function getRequest(url, isAsync, callback) {
-    var xmlHttp = new XMLHttpRequest()
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
-            callback(xmlHttp.responseText);
+  var xmlHttp = new XMLHttpRequest()
+  xmlHttp.onreadystatechange = function() { 
+    if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+          callback(xmlHttp.responseText);
     }
-    xmlHttp.open("GET", url, isAsync)
-    xmlHttp.send(null)
+  xmlHttp.open("GET", url, isAsync)
+  xmlHttp.send(null)
 }
 
 getRequest('https://jsonplaceholder.typicode.com/posts/1', function(response) {
@@ -577,7 +577,7 @@ Quite a common task, and you can do this with plain ole JavaScript
 function getQueryString(name, url) {
   url = url ? url : window.location.href
   
-  var reg = new RegExp( '[?&]' + name + '=([^&#]*)', 'i' )
+  var reg = new RegExp('[?&]' + name + '=([^&#]*)', 'i')
   var string = reg.exec(url)
   return string ? string[1] : null
 }
