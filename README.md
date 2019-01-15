@@ -608,3 +608,152 @@ var myFunction = function(event) {
 el.addEventListener('click', myFunction, false)
 el.addEventListener('hover', myFunction, false)
 ```
+
+## Spawn a Web Worker
+Run JavaScript code in the background with the use of web workers. Bring threading to a language that is single-threaded.
+
+The basics of a web worker runs in an isolated thread. Send a message to your worker using `postMessage`
+```javascript
+/* main.js */
+const worker = new Worker('work.js')
+worker.postMessage('Hello World, do work')
+
+/* work.js */
+worker.onmessage = e => {
+  console.log(e.data)
+}  
+
+worker.onerror = e => {
+  console.error(e.message)
+}
+
+// => 'Hello World'
+```
+> send back a message to the main thread using `pushMessage`
+```javascript
+/* work.js */
+worker.onmessage = e => {
+  console.log(e.data)
+  worker.pushMessage('I worked, this is what i have to say about it')
+}
+
+/* main.js */
+const worker = new Worker('work.js')
+worker.postMessage('Hello World, do work')
+
+worker.onmessage = e => {
+  console.log(e.data)
+}
+
+// => 'I worked, this is what i have to say about it'
+```
+> let's broaden our understanding and setup multiple listeners for the `message` event:
+```javascript
+/* work.js */
+worker.addEventListener('message', function(e) {
+    console.log(e.data)
+    worker.pushMessage('hey')
+  }, false)
+
+worker.addEventListener('message', function(e) {
+    console.log('Another message sent to main.js from worker.js')
+  }, false)
+
+worker.addEventListener('error', function(e) {
+    console.log(e.message)
+  }, false)
+  
+/* main.js */
+const worker = new Worker('worker.js')
+worker.postMessage('hello')
+
+worker.addEventListener('message', function(e) { 
+  console.log(e.data)
+}, false)
+
+// => 'Hey'
+// => 'Another message sent to main.js from worker.js'
+```
+Workers run outside of the main app thread so they do not have the same access to all JS features that your main application does. You do not have access to:
+
+* The DOM
+* The `window` object
+* The `parent` object
+* All workers scrips must be served from the same domain
+
+If you use a worker to handle a task that updates the main thread then you will need to use the messaging system between the worker and main thread.
+
+## `pipe()` 
+`pipe()` might be a tad bit out of scope for this repo, however you'll see numerous versions of it in open source libraries and therefore the interest to vanillify this useful functional function.
+
+Below you'll find the most naive version of pipe
+```javascript
+// imperatively written, we could also use a declarative approach
+function pipe(arr) {
+  return function(y) {
+    let result = y
+      for (let i = 0; i < arr.length; i++) {        
+        let func = arr[i]
+          result = func(result)
+      }
+      return result
+   }
+}
+
+// lets create some functions to pass to our pipe fn
+// they don't have to perfect for demo purposes
+function petName(pet) {
+  return pet.name
+}
+
+function uppercase(str) {
+  str.toUpperCase()
+}
+
+function first5Char(str) {
+  return str.substring(0,6)
+}
+
+function uppercase(str) {
+  return str.toUpperCase()
+}
+
+function reverse(str) {
+  return str.split('').reverse().join('')
+}
+
+function compressString(str) {
+  var output = ''
+  var count = 0
+  for (var i = 0; i < str.length; i++) {
+    count++
+    if (str[i] != str[i+1]) {
+      output += str[i] + count
+      count = 0
+    }
+  }
+  console.log(output)
+}
+
+pipe([petName, uppercase, first5Char, reverse, compressString])({name: 'BooBoo'})
+// => "B1O2B1O2"
+```
+
+## Linear Search
+JavaScript has search built-in with these common methods: `indexOf`, `includes`, `find`, and `findIndex`. Behind the hood when these native functions run they are simply checking for each value per iteration in a sequential or linear fashion.
+```javascript
+function linearSearch(arr, val) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === val) {
+      return i
+    }
+  }
+  return -1
+}
+
+linearSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10)
+// => 9
+
+linearSearch(["Farah", "Javed", "Chris", "Allie" "Kate", "Ali", "Adrian"], "Fahad")
+// => -1
+```
