@@ -8,6 +8,37 @@ We'll try to use as much ES5 as possible with some exceptions as we progress wit
 
 Go on, build your career, confidence and the respect of other engineers in the industry!
 
+## Table of Contents
+
+* [assert()](#assert())
+* [Extend Objects, or Rather Merge Objects](#extend-objects-or-rather-merge-objects)
+* [Dynamically Create a Table from Array on Objects](#dynamically-create-a-table-from-array-on-objects)
+* [Taversing an Array](#traversing-an-array)
+* [Projection (Imperatively Creating a New Array Without Mutation)](#projection-imperatively-creating-a-new-array-without-mutation)
+* [map()](#map)
+* [filter()](#filter)
+* [Chaining Functional Functions](#chaining-functional-functions)
+* [Flatten a Multi-Dimensional Array](#flatten-a-multi-dimensional-array)
+* [GET Request](#get-request)
+* [POST Request](#post-request)
+* [Callback](#callback)
+* [Simulate Async Code](#simulate-async-code)
+* [Select Element By ID](#select-an-element-by-id)
+* [Select an Element By Class Name](#select-an-element-by-class-name)
+* [Select and Match a Static (non-live) Specified Group of Selectors](#select-and-match-a-static-non-live-specified-group-of-selectors)
+* [Select Elements By Tag Name](#select-elements-by-tag-name)
+* [Create a New DOM Element](#create-a-new-dom-element)
+* [Create Nodes and Append Them to New Element](#create-nodes-and-append-them-to-new-element)
+* [Append or Prepend to an Element](#append-or-prepend-to-an-element)
+* [Match Element Selector](#match-element-selector)
+* [Get Parent and Sibling Element Nodes](#get-parent-and-sibling-element-nodes)
+* [Get a Query String From a Url](#get-a-query-string-from-a-url)
+* [Create an Event Listener](#create-an-event-listener)
+* [Spawn a Web Worker](#spawn-a-web-worker)
+* [pipe()](#pipe())
+* [Linear Search](#linear-search)
+* [Binary Search()](#binary-search)
+
 ## assert()
 The most humble of functions, if you know how to use this function it can take care of 80% of your test cases:
 
@@ -780,3 +811,6 @@ binarySearch([1, 2, 4, 8, 12, 18, 22, 30, 50, 99, 100], 100)
 binarySearch([1, 2, 4, 8, 12, 18, 22, 30, 50, 99, 100], -1)
 // => -1
 ```
+
+## Notes & Collaboration
+This project is still W.I.P (work in progress) and will be updated intermittently. Please send a PR from a separate branch if you want to contribute.
