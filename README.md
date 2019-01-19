@@ -38,6 +38,7 @@ Go on, build your career, confidence and the respect of other engineers in the i
 * [pipe()](#pipe())
 * [Linear Search](#linear-search)
 * [Binary Search()](#binary-search)
+* BONUS [Create JavaScript Library Without Prototype](#create-javascript-library-without-prototype)
 
 ## assert()
 The most humble of functions, if you know how to use this function it can take care of 80% of your test cases:
@@ -810,6 +811,54 @@ binarySearch([1, 2, 4, 8, 12, 18, 22, 30, 50, 99, 100], 100)
 
 binarySearch([1, 2, 4, 8, 12, 18, 22, 30, 50, 99, 100], -1)
 // => -1
+```
+
+## Create JavaScript Library Without Prototype
+Create a simple library API without using the prototype chain and by just using a factory function - you'll often see this technique used in the wild (accompanied with other patterns, tbd)
+```javascript
+(function(window) {
+  'use strict'
+
+  // Our main function that contains all the logic
+  function myLib(){
+    var _myLibObject = {}
+    
+    // variables inaccessible to the user of our library, but available in library scope
+    var config = {
+      counter: 1,
+      done: false
+    }
+    
+    // Custom methods that can access and mutate our private variable
+    _myLibObject.incrementCounter = function() {
+      config.counter += 1 
+       
+      return config.counter
+    }
+     
+    _myLibObject.decrementCounter = function() {
+      config.counter -= 1 
+           
+      return config.counter
+    }
+    
+    // Another custom function for our library
+    _myLibObject.logger = function(logMe) {
+      console.log("Logger > Type of variable : " + typeof(logMe))
+      console.log("Logger > Is number : " + !isNaN(logMe))
+      console.log("Logger > Length : " + (logMe).length)
+
+      return console.log(logMe)
+    }
+
+    return _myLibObject
+  }
+
+  // Globally accessible library object
+  if(typeof(window.myAwesomeLibrary) === 'undefined') {
+    window.myAwesomeLibrary = myLib()
+  }
+})(window)
 ```
 
 ## Notes & Collaboration
